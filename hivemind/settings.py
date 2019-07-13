@@ -18,6 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pages.apps.VieConfig',
+    'leads',
+    'client',
+    'blog',
+    'gallery',
 ]
 
 # Middleware
