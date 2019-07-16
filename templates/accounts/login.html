@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block description %}Login{% endblock %}
+{% block robots %}noindex, nofollow{% endblock %}
+{% block stylesheet %}
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+    </style>
+{% endblock %}
+{% block content %}
+
+
+
+
+
+<main>
+<div class="text-center container" style="margin-top: 6rem">
+
+   <!-- Alerts -->
+{% include 'alerts.html' %}
+{{ form.non_field_errors }}
+ {% if error %}
+    {{ error }}
+     <br><br>
+{% endif %}
+    <p class="pt-2">Can't remember your password? Click <a href="{% url 'reset_password' %}">here</a> to reset it via email!</p>
+    <form class="form-signin" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+  <img class="mb-4" src="{% static 'images/logo-new-logo.png' %}" alt="" width="140" height="72">
+  <h1 class="h3-responsive mb-3 font-weight-normal">Parent Portal Login</h1>
+  <label for="inputUsername" class="sr-only">Username</label>
+  <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username">
+
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
+
+{#  <div class="checkbox mb-3">#}
+{#    <label>#}
+{#      <input type="checkbox" value="remember-me"> Remember me#}
+{#    </label>#}
+{#  </div>#}
+  <button class="btn btn-lg btn-red btn-block" type="submit">Login<i class="fa fa-sign-in ml-2"></i></button>
+    </form>
+<div class="m-3">
+    <p>Not a user? Click below to register!</p>
+    <a class="btn btn-red" href="{% url 'register' %}">Create Username<i class="fa fa-user ml-1"></i></a>
+</div>
+</div>
+</main>
+
+
+{% endblock %}
