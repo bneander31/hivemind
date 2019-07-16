@@ -16,6 +16,8 @@ PIP
 Psycopg2
 Psycopg2-binary
 React
+sqlparse
+pytz
 ```
 
 ### Installing
