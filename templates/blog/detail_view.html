@@ -1,0 +1,155 @@
+{% extends "base_blog.html" %}
+{% load static %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block description %}{{ post.content|truncatechars:150 }}{% endblock %}
+{% block content %}
+
+<!--Main layout-->
+<main class="mt-5 pt-5">
+    <div class="container">
+        <!--Section: Post-->
+        <section class="mt-4">
+            <!--Grid row-->
+            <div class="row">
+                <!--Grid column-->
+                <div class="col-md-8 mb-4">
+                    <!--Featured Image-->
+                    <div class="card mb-4 wow fadeIn">
+                             <img src="{{ post.CoverPhoto.url }}" class="img-fluid"
+                                  alt="{{ post.Title}}">
+                    </div>
+                    <!--/.Featured Image-->
+                    <!--Card-->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h1 class="h2-responsive my-4">{{ post.Title }}</h1>
+                            <p>{{ post.Content|linebreaks }}</p>
+                            <p>Published: {{ post.PublishDate|date }}</p>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                    <!-- Author Card-->
+<div class="card mb-4 wow fadeIn">
+                        <div class="card-header">
+                            <span class="card-title">About Author</span>
+                            <span class="pull-right">
+                            </span>
+                        </div>
+                        <!--Card content-->
+                        <div class="card-body">
+{#                            {{ user.profile }}#}
+                            <div class="media d-block d-md-flex mt-3">
+                            {% if post.Author.picture.url %}
+                                <img class="d-flex mb-3 mx-auto z-depth-1" src="{{ post.Author.picture.url }}"
+                                     alt="{{ post.Author.first_name }} {{ post.Author.last_name }}"
+                                     style="width: 100px;">
+                                {% else %}
+                                <img class="d-flex mb-3 mx-auto z-depth-1" src="{% static 'images/logo.png' %}"
+                                    style="width: 100px;" alt="Celtic Development logo">
+                            {% endif %}
+                                <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                                    <h2 class="mt-0 h5-responsive">
+                                        {{ post.Author.first_name }} {{ post.Author.last_name }}
+                                    </h2>
+                                    {% if post.Author.profile.bio %}
+                                   <p>{{ post.Author.profile.bio }}</p>
+                                        {% else %}
+                                        <p></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-4 mb-4">
+                    <!--Card: Jumbotron-->
+                    <!--Card : Dynamic content wrapper-->
+<div class="card mb-4 text-center wow fadeIn">
+                        <div class="card-header">Stay informed with the latest Posts!</div>
+                        <!--Card content-->
+                        <div class="card-body">
+                            <!-- Default form login -->
+                            <form method="POST" action="{% url 'inquiries:subscriber' %}" id="newsletter">
+                                {% csrf_token %}
+                                <!-- Default input email -->
+                                <label for="defaultFormEmailEx" class="grey-text">Your email</label>
+            <input type="email" autocapitalize="off" autocorrect="off" name="email" id="MERGE0" size="25" value="">
+                                <br>
+                                <!-- Default input password -->
+                                <label for="defaultFormNameEx" class="grey-text">Your name</label>
+            <input type="text" name="name" id="MERGE1" size="25" value="">
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-green btn-md" type="submit"
+                                            value="submit" name="submit">Subscribe
+                                        <i class="fa fa-paper-plane ml-1"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            <!-- Default form login -->
+                        </div>
+                    </div>
+                    <!--/.Card : Dynamic content wrapper-->
+                    <!-- Recent Articles Card -->
+                    <div class="card mb-4 wow fadeIn">
+                        <div class="card-header">Recent Articles</div>
+                        <!--Card content-->
+                        <div class="card-body">
+                            {% if recent_posts %}
+                            <ul class="list-unstyled">
+                            {% for recent_post in recent_posts %}
+                                <li class="media my-4">
+                                    <img class="d-flex mr-3" style="width: 80px !important;"
+                                         src="{{ recent_post.cover_photo.url }}" alt="{{ recent_post.title }}">
+                                    <div class="media-body">
+                                        <a href="{% url 'blog:blog_post' recent_post.slug %}">
+                                            <p class="mt-0 mb-1 card-title">{{ recent_post.title }}</p>
+                                        </a>
+
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!--/. Recent Articles Card -->
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!--Section: Post-->
+
+    <!-- Photo Gallery -->
+<div class="divider-new p-3">
+    <h2 class="h2-responsive text-center mx-4">Gallery</h2>
+</div>
+<div class="container da-gallery" id="gallery">
+{% if photos %}
+  <div class="card-columns">
+      {% for photo in photos %}
+    <div class="card">
+        <a data-toggle="lightbox" data-gallery="da-gallery">
+        <img class="img-fluid" src="{{ photo.Picture.url }}"
+             alt="{{ photo.ImageTitle }}"/>
+        </a>
+    </div>
+      {% endfor %}
+    {% else %}
+    <div class="col-md-12 text-center">
+    <p>No Photo currently available to display. Please check back later.</p>
+    </div>
+{% endif %}
+  </div>
+</div>
+<!-- Photo Gallery -->
+    </div>
+</main>
+    <!--Main layout-->
+
+
+{% endblock %}

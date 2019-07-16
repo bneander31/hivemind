@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block canonical %}{% endblock %}
+{% block content %}
+<main>
+<div class="container">
+
+
+<section class="my-5">
+  <div class="divider-new p-3" style="margin-top: 6rem">
+      <h1 class="h1-responsive text-center mx-4">Blog</h1>
+  </div>
+{% if posts %}
+   {% for post in posts %}
+<!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-lg-5 col-xl-4">
+
+      <!-- Featured image -->
+      <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4">
+        <img class="img-fluid" style="width: 100%; height: 100%;"
+             src="{{ post.CoverPhoto.url }}" alt="{{ post.Title}}">
+        <a href="{{ post.Slug }}">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-7 col-xl-8">
+      <!-- Post title -->
+      <h2 class="h2-responsive mb-3 pt-4">{{ post.Title}}</h2>
+      <!-- Excerpt -->
+      <p class="black-text">{{ post.Content|truncatewords:35 }}</p>
+      <!-- Post data -->
+
+        <p>By: {{ post.Author.first_name }} {{ post.Author.last_name }}</p>
+
+        <p><i class="fa fa-calendar mr-1"></i> {{ post.PublishDate|date }}</p>
+      <!-- Read more button -->
+        <a class="btn btn-green btn-md" href="{{ post.Slug }}">View Post<i class="fa fa-chevron-right ml-2"></i></a>
+
+    </div>
+
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+       <hr class="my-5">
+
+      {% endfor %}
+                  {% else %}
+    <div class="col-md-12 text-center">
+    <p>There are currently no blog posts to display, please check back later.</p>
+    </div>
+    {% endif %}
+<!-- Pagination Section -->
+<div class="row">
+    <div class="col-md-12">
+        {% if posts.has_other_pages %}
+          <ul class="pagination pg-red justify-content-center">
+              {% if posts.has_previous %}
+                  <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;</a>
+                  </li>
+              {% else %}
+                  <li class="page-item disabled">
+                      <a class="page-link">&laquo;</a>
+                  </li>
+              {% endif %}
+            {% for i in posts.paginator.page_range %}
+                {% if posts.number == i %}
+                <li class="page-item active">
+                    <a class="page-link">{{ i }}</a>
+                </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if posts.has_next %}
+                 <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a>
+                  </li>
+            {% else %}
+                 <li class="page-item disabled">
+                    <a class="page-link">&raquo;</a>
+                  </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+    </div>
+</div>
+<!-- Pagination Section -->
+</section>
+<!-- Section: Blog v.3 -->
+
+
+</div>
+</main>
+
+{% endblock %}
