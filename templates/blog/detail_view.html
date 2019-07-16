@@ -1,7 +1,42 @@
-{% extends "base_blog.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block description %}{{ post.content|truncatechars:150 }}{% endblock %}
+<!-- Schema Tag -->
+{% block schema %}
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{% url 'blog:blog_post' post.slug %}"
+  },
+  "headline": "{{ post.title }}",
+  "image": [
+    {% with post.postpicture_set.all|first as PostPicture %}
+    "{{ PostPicture.picture.url }}"
+    {% endwith %}
+   ],
+  "datePublished": "{{ post.publish_date|date }}",
+  "dateModified": "{{ post.publish_date|date }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ post.author.first_name }} {{ post.author.last_name }}"
+  },
+   "publisher": {
+    "@type": "Organization",
+    "name": "TLC Learning Center",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.tlcblueisland.com/static/images/logo-new-logo.png"
+    }
+  },
+  "description": "{{ post.content|linebreaks }}"
+}
+ </script>
+{% endblock %}
+<!-- Schema Tag -->
 {% block content %}
 
 <!--Main layout-->
@@ -32,7 +67,7 @@
                     <!-- Author Card-->
 <div class="card mb-4 wow fadeIn">
                         <div class="card-header">
-                            <span class="card-title">About Author</span>
+                            <span class="card-title">Author</span>
                             <span class="pull-right">
                             </span>
                         </div>

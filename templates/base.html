@@ -16,18 +16,22 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Bootstrap core CSS -->
-<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 <!-- Material Design Bootstrap -->
-<link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
    <!-- Material Design icon font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/accordian.min.css' %}">
 <!-- Stylesheets -->
 
+<!-- Alt Page CSS -->
+{% block stylesheet %}
+{% endblock %}
+<!-- Alt Page CSS -->
+
 <!--Favicon -->
 <link rel="icon" href="{% if client %}{{ client.favicon.url }}{% endif %}">
-
 
 
 <!-- Google Tag Manager -->
@@ -39,72 +43,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <!-- Schema Tag -->
-<script type='application/ld+json'>
-{% if client %}
-{
-  "@context": "http://www.schema.org",
-  "@type": "{{ client.Type }}",
-  "name": "{{ client.Name }}",
-  "telephone": "+1{{ client.Telephone }}", {# +1(708) 388-4220 #}
-  "url": "{{ client.Website.url }}",
-  "sameAs": [
-    {% for client in clients %}
-    "https://www.facebook.com/TLCBlueIsland/",
-    "https://www.yelp.com/biz/tlc-learning-center-blue-island",
-    "https://www.linkedin.com/company/tlc-learning-center-schools"
-    {% endfor %}
-  ],
-  "logo": "{{ client.Logo.url }}",
-  "image": "https://www.tlcblueisland.com/media/photos/gallery/2019/06/blue-island.JPG",
-  "priceRange": "{{ client.PriceRange }}",
-  "description": "{{ client.Description }}",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "{{ client.StreetAddress }}",
-    "addressLocality": "{{ client.City }}",
-    "addressRegion": "{{ client.State }}",
-    "postalCode": "{{ client.Zip }}",
-    "addressCountry": "United States"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "{{ client.Latitude }}",
-    "longitude": "{{ client.Longitude }}"
-  },
- "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-      	"Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "06:00",
-      "closes": "18:30"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "Closed",
-      "closes": "Closed"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "Closed",
-      "closes": "Closed"
-    }
-  ]
-}
-{% endif %}
- </script>
+{% block schema %}
+{% endblock %}
 <!-- Schema Tag -->
-
-<!-- Seperate Page CSS -->
-{% block stylesheet %}{% endblock %}
-<!-- Seperate Page CSS -->
 
 </head>
 <body>
@@ -140,7 +81,6 @@ ________              ________       ______
 
 {% block content %}
 {% endblock %}
-
 
 
 <!--Footer-->
