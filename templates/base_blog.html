@@ -38,69 +38,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NQV29FV');</script>
 <!-- End Google Tag Manager -->
 
-<!-- Schema Tag -->
+<!-- Blog Schema Tag -->
 <script type='application/ld+json'>
-{% if client %}
 {
-  "@context": "http://www.schema.org",
-  "@type": "{{ client.Type }}",
-  "name": "{{ client.Name }}",
-  "telephone": "+1{{ client.Telephone }}", {# +1(708) 388-4220 #}
-  "url": "{{ client.Website.url }}",
-  "sameAs": [
-    {% for client in clients %}
-    "https://www.facebook.com/TLCBlueIsland/",
-    "https://www.yelp.com/biz/tlc-learning-center-blue-island",
-    "https://www.linkedin.com/company/tlc-learning-center-schools"
-    {% endfor %}
-  ],
-  "logo": "{{ client.Logo.url }}",
-  "image": "https://www.tlcblueisland.com/media/photos/gallery/2019/06/blue-island.JPG",
-  "priceRange": "{{ client.PriceRange }}",
-  "description": "{{ client.Description }}",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "{{ client.StreetAddress }}",
-    "addressLocality": "{{ client.City }}",
-    "addressRegion": "{{ client.State }}",
-    "postalCode": "{{ client.Zip }}",
-    "addressCountry": "United States"
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{% url 'blog:blog_post' post.slug %}"
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "{{ client.Latitude }}",
-    "longitude": "{{ client.Longitude }}"
+  "headline": "{{ post.title }}",
+  "image": [
+    {% with post.postpicture_set.all|first as PostPicture %}
+    "{{ PostPicture.picture.url }}"
+    {% endwith %}
+   ],
+  "datePublished": "{{ post.publish_date|date }}",
+  "dateModified": "{{ post.publish_date|date }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ post.author.first_name }} {{ post.author.last_name }}"
   },
- "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-      	"Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "06:00",
-      "closes": "18:30"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "Closed",
-      "closes": "Closed"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "Closed",
-      "closes": "Closed"
+   "publisher": {
+    "@type": "Organization",
+    "name": "TLC Learning Center",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.tlcblueisland.com/static/images/logo-new-logo.png"
     }
-  ]
+  },
+  "description": "{{ post.content|linebreaks }}"
 }
-{% endif %}
  </script>
-<!-- Schema Tag -->
+<!-- Blog Schema Tag -->
 
 <!-- Seperate Page CSS -->
 {% block stylesheet %}{% endblock %}
