@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_dashboard.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}Edit Account{% endblock %}
+{% block description %}Edit Account{% endblock %}
+{% block robots %}noindex, nofollow{% endblock %}
+{% block content %}
 
-</body>
-</html>
+
+    <!--Grid row-->
+<div class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+        <!--Card-->
+        <div class="card">
+
+<!--Card content-->
+<div class="card-body">
+    {{ form.non_field_errors }}
+{{ form.message }}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="btn btn-md btn-red" type="submit">Submit
+                <i class="fa fa-chevron-right ml-1"></i>
+            </button>
+        </form>
+    <p class="pt-2">If you wish to reset your password please click the link below.</p>
+                <a class="btn btn-md btn-red" href="{% url 'change_password' %}">
+                    Change Password<i class="fa fa-chevron-right ml-1"></i>
+                </a>
+        </div>
+        </div>
+    </div>
+</div>
+  {% endblock %}

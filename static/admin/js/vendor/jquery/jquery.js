@@ -10171,19 +10171,19 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 					// $( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
 					return funcName.indexOf( "outer" ) === 0 ?
 						elem[ "inner" + name ] :
-						elem.document.documentElement[ "client" + name ];
+						elem.document.documentElement[ "cms" + name ];
 				}
 
 				// Get document width or height
 				if ( elem.nodeType === 9 ) {
 					doc = elem.documentElement;
 
-					// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
+					// Either scroll[Width/Height] or offset[Width/Height] or cms[Width/Height],
 					// whichever is greatest
 					return Math.max(
 						elem.body[ "scroll" + name ], doc[ "scroll" + name ],
 						elem.body[ "offset" + name ], doc[ "offset" + name ],
-						doc[ "client" + name ]
+						doc[ "cms" + name ]
 					);
 				}
 

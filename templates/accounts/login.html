@@ -50,14 +50,11 @@
 {% block content %}
 
 
-
-
-
 <main>
 <div class="text-center container" style="margin-top: 6rem">
 
    <!-- Alerts -->
-{% include 'alerts.html' %}
+{% include 'partials/_alerts.html' %}
 {{ form.non_field_errors }}
  {% if error %}
     {{ error }}

@@ -22,80 +22,89 @@
       <!-- Links -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-
-<ul class="navbar-nav mr-auto">
+<ul class="navbar-nav mr-auto" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 	<!-- Left -->
-<li class="nav-item">
-		<a class="nav-link" id="red" href="{% url 'pages:index' %}">Home
+<li itemprop="name" class="nav-item">
+		<a class="nav-link" itemprop="url" href="/">Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'pages:about' %}" id="orange">About</a>
+            <a class="nav-link" itemprop="url" href="">About</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'staff:staff_list' %}" id="yellow">Staff</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'programs:program_list' %}" id="green">Programs</a>
-          </li>
-		  <li class="nav-item">
-            <a class="nav-link" href="{% url 'blog:blog_list' %}" id="blue">Blog</a>
-          </li>
-
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href=""></a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href=""></a>#}
+{#          </li>#}
+{#		  <li class="nav-item">#}
+{#            <a class="nav-link" href=""></a>#}
+{#          </li>#}
 </ul>
 <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">
+        <!-- Telephone -->
         {% if client.TelLink %}
           <li class="nav-item">
 			   <a href="tel:{{ client.TelLink }}" class="nav-link">
               <i class="fa fa-phone"></i>
             </a>
           </li>
+            {% else %}
         {% endif %}
+        <!-- Social Media Accounts -->
+         {% if social %}
+            {% for social in social %}
 			 <li class="nav-item">
-            <a href="https://www.facebook.com/TLCBlueIsland/" class="nav-link" target="new">
-              <i class="fab fa-facebook-f"></i>
+            <a href="{{ social.Link }}" class="nav-link" target="new">
+              <i class="fa fa-{{ social.Type }}"></i>
             </a>
           </li>
+            {% endfor %}
+            {% else %}
+        {% endif %}
+        <!-- Social Media Accounts -->
+        <!-- Email -->
         {% if client.Email %}
           <li class="nav-item">
             <a href="mailto:{{ client.Email }}" class="nav-link">
               <i class="fa fa-envelope mr-2"></i>
             </a>
           </li>
+            {% else %}
         {% endif %}
-            {% if user.is_authenticated %}
-            <li
-            {% if 'profile' in request.path %}
-              class="nav-item active mr-3"
-            {% else %}
-              class="nav-item mr-3"
-            {% endif %}
-            >
-              <a class="nav-link border border-light rounded" href="{% url 'profile' %}">
-               Welcome {{ user.username }}</a>
-            </li>
-            <li class="nav-item mr-3">
-              <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-              <form action="{% url 'logout' %}" method="POST" id="logout">
-                {% csrf_token %}
-                <input type="hidden">
-              </form>
-            </li>
-          {% else %}
-            <li
-            {% if 'login' in request.path %}
-              class="nav-item active mr-3"
-            {% else %}
-              class="nav-item mr-3"
-            {% endif %}
-            >
-              <a class="nav-link border border-light rounded" href="{% url 'login' %}">
-                <i class="fa fa-sign-in"></i>Login</a>
-            </li>
-          {% endif %}
+{#            {% if user.is_authenticated %}#}
+{#            <li#}
+{#            {% if 'profile' in request.path %}#}
+{#              class="nav-item active mr-3"#}
+{#            {% else %}#}
+{#              class="nav-item mr-3"#}
+{#            {% endif %}>#}
+{#              <a class="nav-link border border-light rounded" href="{% url 'profile' %}">#}
+{#               Welcome {{ user.username }}</a>#}
+{#            </li>#}
+{#            <li class="nav-item mr-3">#}
+{#              <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">#}
+{#                <i class="fas fa-sign-out-alt"></i> Logout#}
+{#              </a>#}
+{#              <form action="{% url 'logout' %}" method="POST" id="logout">#}
+{#                {% csrf_token %}#}
+{#                <input type="hidden">#}
+{#              </form>#}
+{#            </li>#}
+{#          {% else %}#}
+{#            <li#}
+{#            {% if 'login' in request.path %}#}
+{#              class="nav-item active mr-3"#}
+{#            {% else %}#}
+{#              class="nav-item mr-3"#}
+{#            {% endif %}#}
+{#            >#}
+{#              <a class="nav-link border border-light rounded"#}
+{#                 href="{% url 'login' %}">#}
+{#                <i class="fa fa-sign-in"></i>Login</a>#}
+{#            </li>#}
+{#          {% endif %}#}
 
         </ul>
 

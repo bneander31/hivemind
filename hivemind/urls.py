@@ -23,11 +23,11 @@ sitemaps = {
 urlpatterns = [
     path('', include('pages.urls', namespace='pages')),
     path('admin/', admin.site.urls),
-    path('gallery/', include('gallery.urls', namespace='gallery')),
-    path('blog/', include('blog.urls', namespace='blog')),
-    path('leads/', include('leads.urls', namespace='leads')),
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('client/', include('client.urls', namespace='client')),
+    # path('gallery/', include('gallery.urls', namespace='gallery')),
+    # path('blog/', include('blog.urls', namespace='blog')),
+    # path('leads/', include('leads.urls', namespace='leads')),
+    # path('accounts/', include('accounts.urls', namespace='accounts')),
+    # path('cms/', include('cms.urls', namespace='cms')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemap.views.sitemap'),
 ]

@@ -58,66 +58,6 @@ class LoginRequiredMixin(object):
         return login_required(view)
 
 
-class ProfileView(LoginRequiredMixin, ContextMixin, TemplateResponseMixin, View):
-    template_name = 'accounts/dashboard.html'
-
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['title'] = 'some title'
-        return self.render_to_response(context)
-
-
-class HelpView(LoginRequiredMixin, ContextMixin, TemplateResponseMixin, View):
-    template_name = 'accounts/help.html'
-
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['supportTickets'] = Support.objects.all
-        return self.render_to_response(context)
-
-
-@login_required(login_url='/accounts/login/')
-def AdminView(request, *args, **kwargs):
-    inquiry = Inquiry.objects.order_by('-contact_date')
-    paginator = Paginator(inquiry, 10)
-    page = request.GET.get('page')
-    paged_inquiries = paginator.get_page(page)
-
-    enrollment = Enrollment.objects.order_by('-contact_date')
-    pagination = Paginator(enrollment, 10)
-    paged_enrollments = pagination.get_page(page)
-
-    tour = Tour.objects.order_by('-contact_date')
-    paginate = Paginator(tour, 10)
-    paged_tours = paginate.get_page(page)
-
-    context = {
-        'client_leads': paged_inquiries,
-        'client_enrollments': paged_enrollments,
-        'client_tours': paged_tours,
-    }
-
-    return render(request, 'accounts/admin.html', context, *args, **kwargs)
-
-
-@login_required(login_url='/accounts/login/')
-def SupportView(request, *args, **kwargs):
-    support_ticket = Support.objects.order_by('-id').filter(status=True)
-    paginator = Paginator(support_ticket, 10)
-    page = request.GET.get('page')
-    paged_tickets = paginator.get_page(page)
-    closed_ticket = Support.objects.order_by('-id').filter(status=False)
-    ct_paginator = Paginator(closed_ticket, 10)
-    page = request.GET.get('page')
-    paged_clostedtickets = ct_paginator.get_page(page)
-
-    context = {
-        'support_ticket': paged_tickets,
-        'closed_ticket': paged_clostedtickets,
-    }
-    return render(request, 'accounts/support.html', context, *args, **kwargs)
-
-
 @login_required(login_url='/accounts/login/')
 def edit_profile(request):
     if request.method == 'POST':
@@ -130,7 +70,7 @@ def edit_profile(request):
     else:
         form = EditProfileForm(instance=request.user)
         args = {'form': form}
-        return render(request, 'accounts/edit_dashboard.html', args)
+        return render(request, 'accounts/edit_account.html', args)
 
 
 @login_required(login_url='/accounts/login/')

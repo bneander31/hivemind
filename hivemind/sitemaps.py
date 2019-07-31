@@ -4,7 +4,7 @@ import blog.models
 import gallery.models
 import leads.models
 import pages.models
-import client.models
+import cms.models
 
 
 class BlogSitemap(Sitemap):
