@@ -1,4 +1,7 @@
 # Hive Mind CMS
+<p><span>Powered By: </span>
+  <img src="https://vieinteractive.com/images/logo-dark.png" alt="Vie Logo" />
+</p>
 CMS template using Django and React frameworks. 
 
 ## Getting Started
@@ -44,7 +47,7 @@ Deployment notes coming soon!
 ## Authors
 
 * **Brentton Neander** - *Initial work* - [Github](https://github.com/bneander31)
-* **Vie Interactive** - *Initial work* - [Github](https://github.com/vieInteractive)
+* **[Vita Technology, LLC](https://vieinteractive.com/)** - *Initial work* - [Github](https://github.com/vieInteractive)
 
 ## License
 
